@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FASCISMO E NAZISMO</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#f0f0f0;
+      padding:30px;
+      text-align:center;
+    }
+
+    h1{
+      margin-bottom:30px;
+      color:#222;
+      font-size:38px;
+    }
+
+    .painel{
+      display:grid;
+      grid-template-columns:repeat(5, 1fr);
+      gap:18px;
+      max-width:1300px;
+      margin:auto;
+    }
+
+    .botao{
+      background:white;
+      border-radius:20px;
+      padding:12px;
+      border:5px solid #4CAF50;
+      cursor:pointer;
+      transition:0.2s;
+      box-shadow:0 4px 8px rgba(0,0,0,0.15);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:210px;
+    }
+
+    .botao:hover{
+      transform:scale(1.03);
+    }
+
+    .botao img{
+      width:110px;
+      height:110px;
+      object-fit:contain;
+      margin-bottom:10px;
+    }
+
+    .legenda{
+      font-size:18px;
+      font-weight:bold;
+      color:#222;
+      text-align:center;
+    }
+
+    .voltar{
+      margin-top:35px;
+    }
+
+    .voltar a{
+      text-decoration:none;
+      background:#1565C0;
+      color:white;
+      padding:14px 28px;
+      border-radius:14px;
+      font-size:20px;
+      font-weight:bold;
+      transition:0.2s;
+    }
+
+    .voltar a:hover{
+      background:#0D47A1;
+    }
+
+    @media(max-width:1000px){
+      .painel{
+        grid-template-columns:repeat(3,1fr);
+      }
+    }
+
+    @media(max-width:650px){
+      .painel{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<h1>FASCISMO E NAZISMO</h1>
+
+<div class="painel">
+
+  <button class="botao" onclick="falar('Hitler')">
+    <img src="img1.png">
+    <div class="legenda">Hitler</div>
+  </button>
+
+  <button class="botao" onclick="falar('Mussolini')">
+    <img src="img2.png">
+    <div class="legenda">Mussolini</div>
+  </button>
+
+  <button class="botao" onclick="falar('Dominação Mundial')">
+    <img src="img3.png">
+    <div class="legenda">Dominação Mundial</div>
+  </button>
+
+  <button class="botao" onclick="falar('Saudação Fascista')">
+    <img src="img4.png">
+    <div class="legenda">Saudação Fascista</div>
+  </button>
+
+  <button class="botao" onclick="falar('Poder')">
+    <img src="img5.png">
+    <div class="legenda">Poder</div>
+  </button>
+
+  <button class="botao" onclick="falar('Bandeira Nazista')">
+    <img src="img6.png">
+    <div class="legenda">Bandeira Nazista</div>
+  </button>
+
+  <button class="botao" onclick="falar('Avião Militar')">
+    <img src="img12.png">
+    <div class="legenda">Avião Militar</div>
+  </button>
+
+  <button class="botao" onclick="falar('Soldado')">
+    <img src="img13.png">
+    <div class="legenda">Soldado</div>
+  </button>
+
+  <button class="botao" onclick="falar('Destruição')">
+    <img src="img14.png">
+    <div class="legenda">Destruição</div>
+  </button>
+
+  <button class="botao" onclick="falar('Campo de Concentração')">
+    <img src="img15.png">
+    <div class="legenda">Campo de Concentração</div>
+  </button>
+
+  <button class="botao" onclick="falar('Discurso Político')">
+    <img src="img16.png">
+    <div class="legenda">Discurso Político</div>
+  </button>
+
+  <button class="botao" onclick="falar('Propaganda')">
+    <img src="img17.png">
+    <div class="legenda">Propaganda</div>
+  </button>
+
+  <button class="botao" onclick="falar('Indústria de Guerra')">
+    <img src="img23.png">
+    <div class="legenda">Indústria de Guerra</div>
+  </button>
+
+  <button class="botao" onclick="falar('Execução')">
+    <img src="img24.png">
+    <div class="legenda">Execução</div>
+  </button>
+
+  <button class="botao" onclick="falar('Morte')">
+    <img src="img25.png">
+    <div class="legenda">Morte</div>
+  </button>
+
+</div>
+
+<div class="voltar">
+  <a href="index.html">Voltar para Index</a>
+</div>
+
+<script>
+
+  function falar(texto){
+
+    const voz = new SpeechSynthesisUtterance(texto);
+
+    voz.lang = "pt-BR";
+    voz.rate = 0.9;
+    voz.pitch = 1;
+
+    speechSynthesis.speak(voz);
+
+  }
+
+</script>
+
+</body>
+</html>

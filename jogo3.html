@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FASCISMO E NAZISMO</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f2f2f2;
+    padding:20px;
+    text-align:center;
+}
+
+h1{
+    color:#222;
+    margin-bottom:10px;
+    font-size:40px;
+}
+
+h2{
+    color:#555;
+    margin-bottom:25px;
+}
+
+#pontuacao{
+    font-size:28px;
+    font-weight:bold;
+    color:#1565C0;
+    margin-bottom:25px;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+.coluna{
+    width:45%;
+    min-width:320px;
+}
+
+.titulo{
+    font-size:24px;
+    margin-bottom:20px;
+    color:#333;
+    font-weight:bold;
+}
+
+.imagens{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.pictograma{
+    background:white;
+    border:5px solid #4CAF50;
+    border-radius:20px;
+    padding:10px;
+    cursor:grab;
+    transition:0.2s;
+    box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+.pictograma:hover{
+    transform:scale(1.03);
+}
+
+.pictograma img{
+    width:100px;
+    height:100px;
+    object-fit:contain;
+}
+
+.alternativas{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.alvo{
+    background:white;
+    border:4px dashed #888;
+    border-radius:16px;
+    min-height:90px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+    font-size:20px;
+    font-weight:bold;
+    transition:0.2s;
+}
+
+.correto{
+    background:#C8E6C9 !important;
+    border-color:#2E7D32 !important;
+}
+
+.errado{
+    background:#FFCDD2 !important;
+    border-color:#C62828 !important;
+}
+
+#mensagem{
+    margin-top:25px;
+    font-size:28px;
+    font-weight:bold;
+    color:#2E7D32;
+}
+
+.botoes{
+    margin-top:35px;
+}
+
+button{
+    background:#1565C0;
+    color:white;
+    border:none;
+    padding:14px 28px;
+    border-radius:14px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    margin:10px;
+    transition:0.2s;
+}
+
+button:hover{
+    background:#0D47A1;
+}
+
+@media(max-width:900px){
+
+    .container{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .coluna{
+        width:100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>FASCISMO E NAZISMO</h1>
+
+<h2>Arraste o pictograma para a alternativa correta</h2>
+
+<div id="pontuacao">Pontuação: 0</div>
+
+<div class="container">
+
+    <div class="coluna">
+
+        <div class="titulo">PICTOGRAMAS</div>
+
+        <div class="imagens" id="imagens"></div>
+
+    </div>
+
+    <div class="coluna">
+
+        <div class="titulo">ALTERNATIVAS</div>
+
+        <div class="alternativas" id="alternativas"></div>
+
+    </div>
+
+</div>
+
+<div id="mensagem"></div>
+
+<div class="botoes">
+
+    <button onclick="reiniciarJogo()">
+        Novo Jogo
+    </button>
+
+    <button onclick="window.location.href='index.html'">
+        Voltar para Index
+    </button>
+
+</div>
+
+<script>
+
+const dados = [
+
+{img:"img1.png", nome:"Hitler"},
+{img:"img2.png", nome:"Mussolini"},
+{img:"img3.png", nome:"Expansão Territorial"},
+{img:"img4.png", nome:"Saudação Nazista"},
+{img:"img5.png", nome:"Força"},
+{img:"img6.png", nome:"Bandeira Nazista"},
+
+{img:"img7.png", nome:"Fascismo Italiano"},
+{img:"img8.png", nome:"Águia Nazista"},
+{img:"img9.png", nome:"Capacete da SS"},
+{img:"img10.png", nome:"Oficial Nazista"},
+{img:"img11.png", nome:"Tanque de Guerra"},
+
+{img:"img12.png", nome:"Avião Militar"},
+{img:"img13.png", nome:"Soldado"},
+{img:"img14.png", nome:"Bombardeio"},
+{img:"img15.png", nome:"Campo de Concentração"},
+
+{img:"img16.png", nome:"Discurso Político"},
+{img:"img17.png", nome:"Propaganda"},
+{img:"img18.png", nome:"Prisioneiro"},
+{img:"img19.png", nome:"Libertação"},
+{img:"img20.png", nome:"Governo"},
+
+{img:"img21.png", nome:"Queima de Livros"},
+{img:"img22.png", nome:"Extremismo"},
+{img:"img23.png", nome:"Indústria de Guerra"},
+{img:"img24.png", nome:"Execução"},
+{img:"img25.png", nome:"Morte"}
+
+];
+
+let pontuacao = 0;
+let rodadaAtual = [];
+let acertos = 0;
+
+function falar(texto){
+
+    const voz = new SpeechSynthesisUtterance(texto);
+
+    voz.lang = "pt-BR";
+    voz.rate = 0.9;
+    voz.pitch = 1;
+
+    speechSynthesis.speak(voz);
+
+}
+
+function embaralhar(lista){
+
+    return lista.sort(() => Math.random() - 0.5);
+
+}
+
+function iniciarRodada(){
+
+    document.getElementById("mensagem").innerHTML = "";
+
+    rodadaAtual = embaralhar([...dados]).slice(0,8);
+
+    const imagensDiv = document.getElementById("imagens");
+    const alternativasDiv = document.getElementById("alternativas");
+
+    imagensDiv.innerHTML = "";
+    alternativasDiv.innerHTML = "";
+
+    acertos = 0;
+
+    let imagensMisturadas = embaralhar([...rodadaAtual]);
+    let nomesMisturados = embaralhar([...rodadaAtual]);
+
+    imagensMisturadas.forEach(item => {
+
+        const div = document.createElement("div");
+
+        div.className = "pictograma";
+        div.draggable = true;
+        div.id = item.nome;
+
+        div.innerHTML = `
+            <img src="${item.img}" alt="${item.nome}">
+        `;
+
+        div.addEventListener("dragstart", arrastar);
+
+        div.addEventListener("click", () => {
+
+            falar(item.nome);
+
+        });
+
+        imagensDiv.appendChild(div);
+
+    });
+
+    nomesMisturados.forEach(item => {
+
+        const alvo = document.createElement("div");
+
+        alvo.className = "alvo";
+
+        alvo.dataset.nome = item.nome;
+
+        alvo.innerHTML = item.nome;
+
+        alvo.addEventListener("dragover", permitirDrop);
+
+        alvo.addEventListener("drop", soltar);
+
+        alvo.addEventListener("click", () => {
+
+            falar(item.nome);
+
+        });
+
+        alternativasDiv.appendChild(alvo);
+
+    });
+
+}
+
+function arrastar(event){
+
+    event.dataTransfer.setData("text", event.target.id);
+
+    falar(event.target.id);
+
+}
+
+function permitirDrop(event){
+
+    event.preventDefault();
+
+}
+
+function soltar(event){
+
+    event.preventDefault();
+
+    const nomeImagem = event.dataTransfer.getData("text");
+
+    const nomeAlvo = event.target.dataset.nome;
+
+    if(nomeImagem === nomeAlvo){
+
+        event.target.classList.add("correto");
+
+        falar("Correto");
+
+        pontuacao += 10;
+
+        acertos++;
+
+        document.getElementById("pontuacao").innerHTML =
+            "Pontuação: " + pontuacao;
+
+        const elemento = document.getElementById(nomeImagem);
+
+        elemento.style.opacity = "0.3";
+        elemento.draggable = false;
+
+        if(acertos === 8){
+
+            document.getElementById("mensagem").innerHTML =
+                "🎉 Parabéns! Você completou a rodada!";
+
+            falar("Parabéns! Você completou a rodada!");
+
+            setTimeout(() => {
+
+                iniciarRodada();
+
+            }, 2500);
+
+        }
+
+    }else{
+
+        event.target.classList.add("errado");
+
+        falar("Tente novamente");
+
+        setTimeout(() => {
+
+            event.target.classList.remove("errado");
+
+        }, 800);
+
+    }
+
+}
+
+function reiniciarJogo(){
+
+    pontuacao = 0;
+
+    document.getElementById("pontuacao").innerHTML =
+        "Pontuação: 0";
+
+    iniciarRodada();
+
+}
+
+iniciarRodada();
+
+</script>
+
+</body>
+</html>
