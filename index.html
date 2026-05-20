@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JOGOS - FASCISMO E NAZISMO</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f2f2f2;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+h1{
+    font-size:42px;
+    color:#222;
+    margin-bottom:15px;
+    text-align:center;
+}
+
+p{
+    font-size:22px;
+    color:#555;
+    margin-bottom:40px;
+    text-align:center;
+}
+
+.container{
+    display:flex;
+    gap:40px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.card{
+
+    width:260px;
+    background:white;
+    border-radius:25px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 6px 14px rgba(0,0,0,0.15);
+    transition:0.25s;
+    border:5px solid #4CAF50;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px) scale(1.03);
+
+}
+
+.card img{
+
+    width:180px;
+    height:180px;
+    object-fit:contain;
+    margin-bottom:15px;
+    border-radius:18px;
+    background:#fafafa;
+
+}
+
+.card h2{
+
+    color:#222;
+    margin-bottom:12px;
+    font-size:28px;
+
+}
+
+.card a{
+
+    display:inline-block;
+    text-decoration:none;
+    background:#1565C0;
+    color:white;
+    padding:14px 24px;
+    border-radius:14px;
+    font-size:18px;
+    font-weight:bold;
+    transition:0.2s;
+
+}
+
+.card a:hover{
+
+    background:#0D47A1;
+
+}
+
+@media(max-width:900px){
+
+    .container{
+
+        flex-direction:column;
+        align-items:center;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>FASCISMO E NAZISMO</h1>
+
+<p>Escolha um jogo educativo</p>
+
+<div class="container">
+
+    <!-- JOGO 1 -->
+
+    <div class="card">
+
+        <img src="img12.png" alt="Jogo da Associação">
+
+        <h2>Jogo 1</h2>
+
+        <a href="jogo1.html"
+           onclick="falar('Jogo 1')">
+
+           Abrir
+
+        </a>
+
+    </div>
+
+    <!-- JOGO 2 -->
+
+    <div class="card">
+
+        <img src="img15.png" alt="Jogo da Forca">
+
+        <h2>Jogo 2</h2>
+
+        <a href="jogo2.html"
+           onclick="falar('Jogo 2')">
+
+           Abrir
+
+        </a>
+
+    </div>
+
+    <!-- JOGO 3 -->
+
+    <div class="card">
+
+        <img src="img23.png" alt="Jogo Educativo">
+
+        <h2>Jogo 3</h2>
+
+        <a href="jogo3.html"
+           onclick="falar('Jogo 3')">
+
+           Abrir
+
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+function falar(texto){
+
+    const voz = new SpeechSynthesisUtterance(texto);
+
+    voz.lang = "pt-BR";
+
+    voz.rate = 0.9;
+
+    speechSynthesis.speak(voz);
+
+}
+
+</script>
+
+</body>
+
+</html>
